@@ -1,11 +1,22 @@
 {
   "expo": {
-    "name": "meu-app",
-    "slug": "meu-app",
+    "name": "AprendIA",
+    "slug": "aprender-trilhaedu",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Permita o acesso à câmera para adicionar fotos aos perfis no aplicativo.",
+          "photosPermission": "Permita escolher fotos para os perfis no aplicativo.",
+          "microphonePermission": false
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ],
     "ios": {
       "supportsTablet": true
     },
