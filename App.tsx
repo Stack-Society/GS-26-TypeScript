@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -23,6 +23,12 @@ export type RootStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+// O cabeçalho identifica o professor ativo e limita sua largura em telas estreitas.
+function HeaderTitle({ title, teacherName }: { title: string; teacherName: string }): React.JSX.Element {
+  const { width } = useWindowDimensions();
+  return <View style={{ maxWidth: Math.min(230, Math.max(120, width - 170)) }}><Text numberOfLines={1} style={{ color: colors.text, fontSize: 17, fontWeight: '700' }}>{title}</Text><View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 }}><View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: colors.success }} /><Text numberOfLines={1} style={{ color: colors.muted, fontSize: 11 }}>Prof. {teacherName}</Text></View></View>;
+}
 
 export default function App(): React.JSX.Element {
   const [teacher, setTeacher] = useState<Teacher | null>(null);
@@ -53,15 +59,15 @@ export default function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <StatusBar style="dark" />
-      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: colors.background }, headerTintColor: colors.text, contentStyle: { backgroundColor: colors.background } }}>
+      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: colors.background }, headerTintColor: colors.text, headerShadowVisible: false, contentStyle: { backgroundColor: colors.background } }}>
         {teacher ? (
           <>
-            <Stack.Screen name="Students" options={{ title: 'Lista de Estudantes', headerBackVisible: false, headerRight }}>
+            <Stack.Screen name="Students" options={{ headerTitle: () => <HeaderTitle title="Lista de Estudantes" teacherName={teacher.name} />, headerBackVisible: false, headerRight }}>
               {(props) => <StudentsScreen {...props} teacher={teacher} onTeacherChange={setTeacher} onLogout={logout} />}
             </Stack.Screen>
-            <Stack.Screen name="NewStudent" component={NewStudentScreen} options={{ title: 'Cadastro de Estudante', headerRight }} />
-            <Stack.Screen name="StudentDetails" component={StudentDetailsScreen} options={{ title: 'Detalhes do Estudante', headerRight }} />
-            <Stack.Screen name="EditStudent" component={EditStudentScreen} options={{ title: 'Editar Estudante', headerRight }} />
+            <Stack.Screen name="NewStudent" component={NewStudentScreen} options={{ headerTitle: () => <HeaderTitle title="Cadastro de Estudante" teacherName={teacher.name} />, headerRight }} />
+            <Stack.Screen name="StudentDetails" component={StudentDetailsScreen} options={{ headerTitle: () => <HeaderTitle title="Detalhes do Estudante" teacherName={teacher.name} />, headerRight }} />
+            <Stack.Screen name="EditStudent" component={EditStudentScreen} options={{ headerTitle: () => <HeaderTitle title="Editar Estudante" teacherName={teacher.name} />, headerRight }} />
           </>
         ) : (
           <Stack.Screen name="Login" options={{ headerShown: false }}>
