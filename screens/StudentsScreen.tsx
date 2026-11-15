@@ -3,6 +3,7 @@ import { ActivityIndicator, FlatList, Linking, Pressable, StyleSheet, Text, View
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../App';
 import { ActionButton } from '../components/ActionButton';
@@ -15,8 +16,9 @@ import { colors, shared } from '../styles';
 // Recebe o professor da sessão para exibir e atualizar seu avatar sem duplicar a fonte de dados.
 type Props = NativeStackScreenProps<RootStackParamList, 'Students'> & { teacher: Teacher; onTeacherChange: (teacher: Teacher) => void; onLogout: () => Promise<void> };
 
-export function StudentsScreen({ teacher, onTeacherChange, onLogout }: Props): React.JSX.Element {
+export function StudentsScreen({ navigation, teacher, onTeacherChange, onLogout }: Props): React.JSX.Element {
   // Estados separados permitem mostrar carregamento, falha e ações da foto independentemente.
+  const insets = useSafeAreaInsets();
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -141,6 +143,7 @@ export function StudentsScreen({ teacher, onTeacherChange, onLogout }: Props): R
         ListHeaderComponent={header}
         ListEmptyComponent={empty}
       />
+      <View style={[styles.bottomBar, { paddingBottom: Math.max(insets.bottom, 12) }]}><ActionButton title="Cadastrar Novo Estudante" icon="person-add-outline" onPress={(): void => navigation.navigate('NewStudent')} /></View>
     </View>
   );
 }
@@ -173,4 +176,5 @@ const styles = StyleSheet.create({
   sectionTitle: { color: colors.text, fontSize: 17, fontWeight: '700' },
   sectionCaption: { color: colors.muted, fontSize: 11, marginTop: 3 },
   countBadge: { color: colors.primaryDark, backgroundColor: colors.soft, borderRadius: 99, paddingHorizontal: 8, paddingVertical: 5, fontSize: 10, fontWeight: '700' },
+  bottomBar: { paddingHorizontal: 16, paddingTop: 8, backgroundColor: colors.background, borderTopWidth: 1, borderTopColor: '#EDEFFA' },
 });

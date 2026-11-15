@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Teacher } from './models/types';
 import { LoginScreen } from './screens/LoginScreen';
 import { StudentsScreen } from './screens/StudentsScreen';
+import { NewStudentScreen } from './screens/NewStudentScreen';
 import { getSession, signOut } from './services/teacherService';
 import { colors, shared } from './styles';
 
@@ -14,6 +15,7 @@ import { colors, shared } from './styles';
 export type RootStackParamList = {
   Login: undefined;
   Students: undefined;
+  NewStudent: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,9 +51,12 @@ export default function App(): React.JSX.Element {
       <StatusBar style="dark" />
       <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: colors.background }, headerTintColor: colors.text, contentStyle: { backgroundColor: colors.background } }}>
         {teacher ? (
-          <Stack.Screen name="Students" options={{ title: 'Lista de Estudantes', headerBackVisible: false, headerRight }}>
-            {(props) => <StudentsScreen {...props} teacher={teacher} onTeacherChange={setTeacher} onLogout={logout} />}
-          </Stack.Screen>
+          <>
+            <Stack.Screen name="Students" options={{ title: 'Lista de Estudantes', headerBackVisible: false, headerRight }}>
+              {(props) => <StudentsScreen {...props} teacher={teacher} onTeacherChange={setTeacher} onLogout={logout} />}
+            </Stack.Screen>
+            <Stack.Screen name="NewStudent" component={NewStudentScreen} options={{ title: 'Cadastro de Estudante', headerRight }} />
+          </>
         ) : (
           <Stack.Screen name="Login" options={{ headerShown: false }}>
             {(props) => <LoginScreen {...props} onLogin={setTeacher} />}
