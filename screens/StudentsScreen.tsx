@@ -79,7 +79,7 @@ export function StudentsScreen({ navigation, teacher, onTeacherChange, onLogout 
 
   useFocusEffect(useCallback((): void => { void reload(); }, [reload]));
 
-  // Cada cartão mostra um estudante e usa seu ID estável como chave da lista.
+  // Cada cartão usa o ID estável para abrir os detalhes atuais do estudante.
   const renderItem = ({ item }: { item: Student }): React.JSX.Element => (
     <View style={shared.card}>
       <View style={styles.studentRow}>
@@ -92,6 +92,7 @@ export function StudentsScreen({ navigation, teacher, onTeacherChange, onLogout 
         <Text style={[styles.statusBadge, item.statusTone === 'alert' ? styles.statusAlert : item.statusTone === 'success' ? styles.statusSuccess : styles.statusProgress]} numberOfLines={1}>{item.statusLabel ?? 'Em acompanhamento'}</Text>
       </View>
       <View style={styles.skillRow}><Ionicons name="book-outline" size={17} color={colors.primaryDark} /><Text style={styles.skillText}>BNCC: {item.bnccSkill ?? 'A definir'}</Text><Text style={styles.resultText} numberOfLines={1}>{item.resultSummary ?? 'Cadastro local'}</Text></View>
+      <ActionButton title="Ver Detalhes do Aluno" icon="chevron-forward" secondary onPress={(): void => navigation.navigate('StudentDetails', { studentId: item.id })} />
     </View>
   );
 

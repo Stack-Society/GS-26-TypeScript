@@ -8,6 +8,7 @@ import { Teacher } from './models/types';
 import { LoginScreen } from './screens/LoginScreen';
 import { StudentsScreen } from './screens/StudentsScreen';
 import { NewStudentScreen } from './screens/NewStudentScreen';
+import { StudentDetailsScreen } from './screens/StudentDetailsScreen';
 import { getSession, signOut } from './services/teacherService';
 import { colors, shared } from './styles';
 
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   Login: undefined;
   Students: undefined;
   NewStudent: undefined;
+  StudentDetails: { studentId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,6 +58,7 @@ export default function App(): React.JSX.Element {
               {(props) => <StudentsScreen {...props} teacher={teacher} onTeacherChange={setTeacher} onLogout={logout} />}
             </Stack.Screen>
             <Stack.Screen name="NewStudent" component={NewStudentScreen} options={{ title: 'Cadastro de Estudante', headerRight }} />
+            <Stack.Screen name="StudentDetails" component={StudentDetailsScreen} options={{ title: 'Detalhes do Estudante', headerRight }} />
           </>
         ) : (
           <Stack.Screen name="Login" options={{ headerShown: false }}>
