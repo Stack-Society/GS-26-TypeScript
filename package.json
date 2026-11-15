@@ -1,6 +1,12 @@
 {
   "name": "aprendia",
-  "authors": [],
+  "authors": [
+    "Leonardo Fernandes Mesquita - RM559623",
+    "Vitor de Lima Domingues - RM561008",
+    "Giovanni Romano Provazi - RM560434",
+    "Caio Berardo de Araújo - RM560357",
+    "Felipe Carlos Abreu - RM559476"
+  ],
   "version": "1.0.0",
   "main": "index.ts",
   "dependencies": {
