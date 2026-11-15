@@ -1,31 +1,22 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { ActionButton } from './components/ActionButton';
 import { Teacher } from './models/types';
 import { LoginScreen } from './screens/LoginScreen';
+import { StudentsScreen } from './screens/StudentsScreen';
 import { getSession, signOut } from './services/teacherService';
 import { colors, shared } from './styles';
 
 // As rotas tipadas impedem navegar para uma tela inexistente ou passar parâmetros errados.
 export type RootStackParamList = {
   Login: undefined;
-  TeacherHome: undefined;
+  Students: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
-function TeacherHome({ teacher, onLogout }: { teacher: Teacher; onLogout: () => Promise<void> }): React.JSX.Element {
-  return (
-    <View style={[shared.page, shared.content]}>
-      <Text style={shared.title}>Olá, {teacher.name}</Text>
-      <Text style={shared.body}>Bem-vindo ao AprendIA.</Text>
-      <ActionButton title="Sair da conta" icon="log-out-outline" secondary onPress={(): void => { void onLogout(); }} />
-    </View>
-  );
-}
 
 export default function App(): React.JSX.Element {
   const [teacher, setTeacher] = useState<Teacher | null>(null);
@@ -45,6 +36,9 @@ export default function App(): React.JSX.Element {
     }
   };
 
+  // A saída também fica acessível no cabeçalho da lista.
+  const headerRight = (): React.JSX.Element => <Pressable accessibilityRole="button" accessibilityLabel="Sair da conta" onPress={(): void => { void logout(); }} style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: colors.soft, alignItems: 'center', justifyContent: 'center' }}><Ionicons name="log-out-outline" size={21} color={colors.primaryDark} /></Pressable>;
+
   if (loading) {
     return <View style={[shared.page, { justifyContent: 'center' }]}><ActivityIndicator color={colors.primary} size="large" /></View>;
   }
@@ -55,8 +49,8 @@ export default function App(): React.JSX.Element {
       <StatusBar style="dark" />
       <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: colors.background }, headerTintColor: colors.text, contentStyle: { backgroundColor: colors.background } }}>
         {teacher ? (
-          <Stack.Screen name="TeacherHome" options={{ title: 'Área docente', headerBackVisible: false }}>
-            {() => <TeacherHome teacher={teacher} onLogout={logout} />}
+          <Stack.Screen name="Students" options={{ title: 'Lista de Estudantes', headerBackVisible: false, headerRight }}>
+            {(props) => <StudentsScreen {...props} teacher={teacher} onTeacherChange={setTeacher} onLogout={logout} />}
           </Stack.Screen>
         ) : (
           <Stack.Screen name="Login" options={{ headerShown: false }}>
