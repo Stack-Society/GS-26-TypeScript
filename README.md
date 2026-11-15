@@ -23,6 +23,10 @@
 | ODS conectados | ODS 4 — Educação de qualidade; ODS 10 — Redução das desigualdades. |
 | Referências | BNCC; SAEB; Compromisso Nacional Criança Alfabetizada (MEC). |
 
+## Contribuição para as ODS
+
+O acompanhamento de dificuldades de aprendizagem ajuda o professor a planejar intervenções (ODS 4). A organização dos registros pode ajudar a priorizar estudantes que precisam de apoio (ODS 10). O impacto ainda não foi medido.
+
 ## Aplicativo mobile
 
 Aplicativo React Native e Expo para o professor acompanhar estudantes com dificuldades de aprendizagem. As cinco telas são identificação, lista, cadastro, detalhes e edição. A interface usa cores, cartões e organização inspirados nos protótipos Stitch fornecidos. Os registros iniciais do 7º ano e seus indicadores pedagógicos são fictícios, usados somente para demonstração; o aplicativo não calcula diagnósticos nem consulta uma base curricular externa.
