@@ -271,10 +271,11 @@ export function StudentDetailsScreen({ navigation, route }: Props): React.JSX.El
         {errorDetails ? <Text selectable style={[shared.body, { marginTop: 8, fontSize: 12 }]}>Detalhe para diagnóstico: {errorDetails}</Text> : null}
         {permissionDenied ? <ActionButton title="Abrir configurações do dispositivo" secondary onPress={(): void => { void Linking.openSettings(); }} /> : null}
       </View>
-      {/* Os exemplos não exibem exclusão; o serviço repete essa proteção. */}
+      {/* Os exemplos não exibem edição/exclusão; os serviços repetem essa proteção. */}
       {!isInitialStudent(student.id) ? <View style={shared.card}>
         <Text style={shared.heading}>Gerenciar cadastro</Text>
-        <Text style={shared.body}>Exclua este estudante cadastrado no aplicativo se o registro não for mais necessário.</Text>
+        <Text style={shared.body}>Atualize os dados ou exclua este estudante cadastrado no aplicativo.</Text>
+        <ActionButton title="Editar estudante" icon="create-outline" secondary onPress={(): void => navigation.navigate('EditStudent', { studentId: student.id })} disabled={deleteBusy || photoBusy || busy} />
         <Pressable accessibilityRole="button" accessibilityLabel={`Excluir ${student.name}`} accessibilityState={{ disabled: deleteBusy || photoBusy || busy }} disabled={deleteBusy || photoBusy || busy} onPress={confirmDeletion} style={[styles.deleteButton, deleteBusy || photoBusy || busy ? styles.deleteButtonDisabled : null]}>
           <Ionicons name="trash-outline" size={18} color={colors.error} />
           <Text style={styles.deleteButtonText}>{deleteBusy ? 'Excluindo...' : 'Excluir estudante'}</Text>
