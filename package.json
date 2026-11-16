@@ -1,11 +1,11 @@
 {
   "name": "aprendia",
   "authors": [
-    "Leonardo Fernandes Mesquita - RM559623",
-    "Vitor de Lima Domingues - RM561008",
-    "Giovanni Romano Provazi - RM560434",
-    "Caio Berardo de Araújo - RM560357",
-    "Felipe Carlos Abreu - RM559476"
+    { "name": "Leonardo Fernandes Mesquita", "rm": "559623" },
+    { "name": "Vitor de Lima Domingues", "rm": "561008" },
+    { "name": "Giovanni Romano Provazi", "rm": "560434" },
+    { "name": "Caio Berardo de Araújo", "rm": "560357" },
+    { "name": "Felipe Carlos Abreu", "rm": "559476" }
   ],
   "version": "1.0.0",
   "main": "index.ts",
