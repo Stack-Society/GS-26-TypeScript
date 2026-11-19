@@ -33,6 +33,14 @@ Aplicativo React Native e Expo para o professor acompanhar estudantes com dificu
 
 Tecnologias: Expo SDK 58, React Native, TypeScript estrito, React Navigation, AsyncStorage, Expo Image Picker, Expo File System, Expo Notifications e seletor nativo de data e hora. Os dados são locais, sem servidor.
 
+## Vídeo de demonstração
+
+Clique na capa para assistir à demonstração do aplicativo (2min05s).
+
+[![Capa do vídeo de demonstração do AprendIA](media/AprendIA_capa.png)](media/AprendIA_demonstracao_final.mp4)
+
+[Abrir o vídeo em MP4](media/AprendIA_demonstracao_final.mp4)
+
 ## Instalação e execução
 
 Com Node.js, npm e Expo Go instalado no celular:
